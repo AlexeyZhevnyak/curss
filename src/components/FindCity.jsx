@@ -10,7 +10,6 @@ class FindCity extends Component {
     city: "",
     items: [],
     currWeather: []
-
   };
 
   //   componentDidMount() {
@@ -30,6 +29,7 @@ class FindCity extends Component {
           items: res.data,
         });
       });
+   // axios.head()
   };
 
   handleChange = (event) => {
@@ -40,9 +40,6 @@ class FindCity extends Component {
 
 
   render() {
-    const find_btn = {
-    };
-
     return (
       <div className = "frst">
         <form onSubmit={this.handleSubmit}>
