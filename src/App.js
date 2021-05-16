@@ -6,6 +6,7 @@ import Login from './components/Login';
 import { Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
+import Cities from './components/Cities';
 
 export const UserContext = React.createContext({
     email: '',
@@ -17,19 +18,14 @@ export const UserContext = React.createContext({
 function App() {
 
     return (
-
         <BrowserRouter>
-            <UserContext.Provider>
                 <NavState>
                     <MainMenu />
                 </NavState>
                 <Route exact path='/main' component={FindCity} />
                 <Route exact path='/login' component={Login} />
-            </UserContext.Provider>
-
+                <Route exact path={'/' + localStorage.getItem('user') + '/cities'} component={Cities}/>
         </BrowserRouter>
-
-
     );
 }
 

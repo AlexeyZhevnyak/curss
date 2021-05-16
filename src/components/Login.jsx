@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { Component } from 'react';
 import styles from './Login.module.css'
 import { UserContext } from '../App'
+import { BrowserRouter, Link, Redirect } from "react-router-dom";
+import { createHashHistory } from "history";
 
 class Login extends Component {
     constructor(props) {
@@ -9,7 +11,8 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            responsee: ""
+            responsee: "",
+            isAuth: false
         };
 
     };
@@ -28,17 +31,21 @@ class Login extends Component {
         })
     };
 
+
+
     handleSubmit = (event) => {
 
         event.preventDefault();
         axios.post("http://localhost:8080/api/v1/auth/login", {
-            "email": "aha@gmail.com",
-            "password": "abcd"
+            "email": this.state.email,
+            "password": this.state.password
         }).then(response => {
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('email',  response.data.email)
+            localStorage.setItem('user', response.data.user);
+            window.location.assign("/" + localStorage.getItem('user') + "/cities");
         })
     }
+
 
 
     render() {
@@ -70,29 +77,31 @@ class Login extends Component {
         };
 
         return (
-            <UserContext.Provider value={{ email: "net", token: "oho" }}>
-                <div style={wrapF}>
-                    <form action="" style={formCs} onSubmit={this.handleSubmit}>
+            <div style={wrapF}>
+                <form action="" style={formCs} onSubmit={this.handleSubmit}>
 
-                        <span style={fItem} className={styles.test}>Войти</span>
-                        <div style={fItem}>
-                            <span>Элекстронная почта</span>
-                            <input type="email" className={styles.inSt} placeholder="Введите e-mail"
-                                onChange={this.handleEmail} value={this.state.email} />
-                            <span>Пароль</span>
-                            <input type="password" className={styles.inSt} placeholder="Введите пароль"
-                                onChange={this.handlePassword} value={this.state.password} />
-                        </div>
-                        <input type="submit" className={styles.subBtn} />
-                        <div style={fItem}>
-                            <span>Войти с помощью</span>
-                            <div style={socBtns}>
+                    <span style={fItem} className={styles.test}>Войти</span>
+                    <div style={fItem}>
+                        <span>Элекстронная почта</span>
+                        <input type="email" className={styles.inSt} placeholder="Введите e-mail"
+                            onChange={this.handleEmail} value={this.state.email} />
+                        <span>Пароль</span>
+                        <input type="password" className={styles.inSt} placeholder="Введите пароль"
+                            onChange={this.handlePassword} value={this.state.password} />
+                    </div>
+                    <input type="submit" className={styles.subBtn} />
+                    <div style={fItem}>
+                        <span>Войти с помощью</span>
+                        <div style={socBtns}>
 
-                            </div>
                         </div>
-                    </form>
-                </div>
-            </UserContext.Provider>
+                    </div>
+                </form>
+                <Link></Link>
+            </div>
+
+
+
         );
     }
 }

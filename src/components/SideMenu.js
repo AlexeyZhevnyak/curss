@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { MenuContext } from './NavState';
-import {Route} from 'react-router';
-import {BrowserRouter} from 'react-router-dom';
+import { Route } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 // import arrow from '../arrow.svg';
 
 const Menu = styled.nav`
@@ -68,14 +68,13 @@ SideMenu.defaultProps = {
   children: (
     <>
       <BrowserRouter>
-        <Route path="/main">
-          <MenuLink href="/">Главная</MenuLink>
+        <MenuLink href="/main">Главная</MenuLink>
+        <Route exact path="/main">
           <MenuLink href="/login">Войти</MenuLink>
         </Route>
 
-        <Route path="/profile">
-          <MenuLink href="/">Главная</MenuLink>
-          <MenuLink href="/cities">Города</MenuLink>
+        <Route path={"/main/" + localStorage.getItem('user')}>
+          <MenuLink href={"/" + localStorage.getItem('user') + "/cities"}>Города</MenuLink>
         </Route>
 
       </BrowserRouter>

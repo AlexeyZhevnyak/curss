@@ -41,6 +41,7 @@ class FindCity extends Component {
 
   render() {
     return (
+      
       <div className = "frst">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -49,10 +50,12 @@ class FindCity extends Component {
           <input type="submit" value="Поиск" className = 'findBtn btn btn-light'/>
         </form>
 
+   
         <div className="fore">
           {
-            this.state.items.map(item =>
-              <ForeCastItem item={item} />
+            this.state.items.map(item => <ForeCastItem item={item} />
+
+            
             )
           }
         </div>
